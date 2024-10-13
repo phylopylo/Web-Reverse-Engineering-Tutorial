@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philip RE Challenge</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Philip Reverse Engineering Challenge</h1>
+hmmm how can we get more data? (multiple ways of attacking this problem!)<br><br>
+<table id="data-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Language</th>
+            <th>ID</th>
+            <th>Bio</th>
+            <th>Version</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Rows will be populated here -->
+    </tbody>
+</table>
+
+<br><br>
+<a href="/">go back</a>
+
+<script>
+    async function fetchData() {
+        try {
+            const response = await fetch('/api/noauth_example?entries=3');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            populateTable(data);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+
+    function populateTable(data) {
+        const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+        data.forEach(item => {
+            const row = tableBody.insertRow();
+            row.insertCell(0).textContent = item.name;
+            row.insertCell(1).textContent = item.language;
+            row.insertCell(2).textContent = item.id;
+            row.insertCell(3).textContent = item.bio;
+            row.insertCell(4).textContent = item.version;
+        });
+    }
+
+    // Fetch the data when the page loads
+    window.onload = fetchData;
+</script>
+
+</body>
+</html>
