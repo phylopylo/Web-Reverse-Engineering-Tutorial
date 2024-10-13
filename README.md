@@ -5,5 +5,6 @@ Python3 requirements: flask, colorama
 
 To run:
 
-chmod a+x run.sh
+chmod a+x run.sh<br>
 ./run.sh
+
